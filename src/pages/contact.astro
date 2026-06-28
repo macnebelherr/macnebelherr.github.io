@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Kontakt" description="Kontakt – Guido Walther Fotografie">
+
+  <div class="pt-32 max-w-4xl mx-auto px-6 pb-20">
+
+    <!-- Header -->
+    <div class="mb-16">
+      <p class="text-amber-400 tracking-[0.2em] uppercase text-xs mb-3">In Kontakt treten</p>
+      <h1 class="text-4xl md:text-5xl font-thin">Kontakt</h1>
+      <div class="mt-4 w-16 h-px bg-amber-400"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-16">
+
+      <!-- Contact Info -->
+      <div class="space-y-8">
+        <p class="text-zinc-400 font-light leading-relaxed">
+          Du hast Fragen zu meinen Fotos, möchtest eine Aufnahme lizenzieren
+          oder einfach in Kontakt treten? Schreib mir gerne – ich freue mich
+          über jede Nachricht.
+        </p>
+
+        <div class="space-y-6">
+          <div>
+            <p class="text-xs tracking-widest uppercase text-zinc-500 mb-2">E-Mail</p>
+            <a
+              href="mailto:guidowalther@googlemail.com"
+              class="text-amber-400 hover:text-amber-300 transition-colors font-light"
+            >
+              guidowalther@googlemail.com
+            </a>
+          </div>
+
+          <div>
+            <p class="text-xs tracking-widest uppercase text-zinc-500 mb-3">Online</p>
+            <div class="space-y-3">
+              <a
+                href="https://guidowalther.myportfolio.com"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center gap-3 text-zinc-300 hover:text-amber-400 transition-colors"
+              >
+                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                </svg>
+                <span class="font-light">Adobe Portfolio</span>
+              </a>
+              <a
+                href="https://www.flickr.com/photos/macnebelherr"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center gap-3 text-zinc-300 hover:text-amber-400 transition-colors"
+              >
+                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <span class="font-light">Flickr – macnebelherr</span>
+              </a>
+              <a
+                href="https://guido-walther-fotografie.jimdosite.com"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center gap-3 text-zinc-300 hover:text-amber-400 transition-colors"
+              >
+                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                </svg>
+                <span class="font-light">Jimdo-Seite</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div>
+        <form
+          action="https://formspree.io/f/DEINE_FORMSPREE_ID"
+          method="POST"
+          class="space-y-5"
+          id="contact-form"
+        >
+          <div>
+            <label for="name" class="block text-xs tracking-widest uppercase text-zinc-500 mb-2">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full bg-zinc-900 border border-zinc-700 text-zinc-100 px-4 py-3 text-sm focus:outline-none focus:border-amber-400 transition-colors"
+              placeholder="Dein Name"
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-xs tracking-widest uppercase text-zinc-500 mb-2">E-Mail</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full bg-zinc-900 border border-zinc-700 text-zinc-100 px-4 py-3 text-sm focus:outline-none focus:border-amber-400 transition-colors"
+              placeholder="deine@email.de"
+            />
+          </div>
+          <div>
+            <label for="message" class="block text-xs tracking-widest uppercase text-zinc-500 mb-2">Nachricht</label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="5"
+              class="w-full bg-zinc-900 border border-zinc-700 text-zinc-100 px-4 py-3 text-sm focus:outline-none focus:border-amber-400 transition-colors resize-none"
+              placeholder="Deine Nachricht..."
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="w-full px-8 py-3 bg-amber-400 text-zinc-950 text-sm tracking-widest uppercase font-medium hover:bg-amber-300 transition-colors"
+          >
+            Nachricht senden
+          </button>
+          <p class="text-zinc-600 text-xs">
+            Hinweis: Das Kontaktformular benötigt einen kostenlosen
+            <a href="https://formspree.io" target="_blank" class="underline hover:text-zinc-400">Formspree-Account</a>.
+            Alternativ kannst du direkt per E-Mail schreiben.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

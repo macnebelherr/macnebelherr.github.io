@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const galleries = [
+  {
+    title: 'Feuerwerk der Turnkunst',
+    year: '2024',
+    category: 'Sport',
+    slug: 'feuerwerk-turnkunst-2024',
+    description: 'Dynamische Sportfotografie beim Turnfest – Bewegung, Ausdruck und perfektes Timing.',
+    images: [
+      'https://images.unsplash.com/photo-1577416412292-747c6607f055?w=1200&q=85',
+      'https://images.unsplash.com/photo-1547483238-2cbf881a559f?w=1200&q=85',
+      'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1200&q=85',
+      'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=1200&q=85',
+    ],
+  },
+  {
+    title: 'Wildpark Lüneburger Heide',
+    year: '2023',
+    category: 'Tierwelt',
+    slug: 'wildpark-lueneburger-heide-2023',
+    description: 'Faszinierende Tierwelt in der Lüneburger Heide – nah und unverstellt.',
+    images: [
+      'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=1200&q=85',
+      'https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1200&q=85',
+      'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?w=1200&q=85',
+      'https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=1200&q=85',
+      'https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=1200&q=85',
+    ],
+  },
+  {
+    title: 'Natur',
+    year: '2022',
+    category: 'Natur',
+    slug: 'natur-2022',
+    description: 'Naturaufnahmen aus Wäldern, Feldern und stillen Landschaften.',
+    images: [
+      'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=85',
+      'https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&q=85',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85',
+      'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1200&q=85',
+    ],
+  },
+  {
+    title: 'Sandkuhle',
+    year: '2019',
+    category: 'Landschaft',
+    slug: 'sandkuhle-2019',
+    description: 'Strukturen, Licht und Schatten in einer ungewöhnlichen Landschaft.',
+    images: [
+      'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1200&q=85',
+      'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=1200&q=85',
+      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&q=85',
+    ],
+  },
+  {
+    title: 'Eulenkasten',
+    year: '2019',
+    category: 'Tierwelt',
+    slug: 'eulenkasten-2019',
+    description: 'Geduldige Nahaufnahmen von Eulen in ihrem natürlichen Umfeld.',
+    images: [
+      'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=1200&q=85',
+      'https://images.unsplash.com/photo-1570462040040-5400c23c5e52?w=1200&q=85',
+      'https://images.unsplash.com/photo-1554110397-9bcd7d7b0b3f?w=1200&q=85',
+    ],
+  },
+  {
+    title: 'Vogelpark Walsrode',
+    year: '2017',
+    category: 'Tierwelt',
+    slug: 'vogelpark-walsrode-2017',
+    description: 'Farbenfrohe und exotische Vögel aus dem Weltvogelpark Walsrode.',
+    images: [
+      'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=1200&q=85',
+      'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=1200&q=85',
+      'https://images.unsplash.com/photo-1568393691622-c7ba131d63b4?w=1200&q=85',
+      'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=1200&q=85',
+    ],
+  },
+];
+
+export function getStaticPaths() {
+  const slugs = [
+    'feuerwerk-turnkunst-2024',
+    'wildpark-lueneburger-heide-2023',
+    'natur-2022',
+    'sandkuhle-2019',
+    'eulenkasten-2019',
+    'vogelpark-walsrode-2017',
+  ];
+  return slugs.map(slug => ({ params: { slug } }));
+}
+
+const gallery = galleries.find(g => g.slug === Astro.params.slug)!;
+---
+
+<BaseLayout title={gallery.title} description={gallery.description}>
+
+  <!-- Back link + header -->
+  <div class="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+    <a href="/portfolio" class="text-zinc-500 hover:text-amber-400 transition-colors text-sm tracking-wider uppercase inline-flex items-center gap-2 mb-8">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Zurück zum Portfolio
+    </a>
+    <p class="text-amber-400 tracking-[0.2em] uppercase text-xs mb-2">{gallery.category} · {gallery.year}</p>
+    <h1 class="text-4xl md:text-5xl font-thin">{gallery.title}</h1>
+    <p class="text-zinc-400 mt-4 max-w-xl font-light leading-relaxed">{gallery.description}</p>
+    <div class="mt-4 w-16 h-px bg-amber-400"></div>
+  </div>
+
+  <!-- Image Grid -->
+  <div class="max-w-7xl mx-auto px-6 pb-20">
+    <div class="columns-1 md:columns-2 gap-4 space-y-4">
+      {gallery.images.map((src, i) => (
+        <div class="gallery-item break-inside-avoid cursor-zoom-in" onclick={`openLightbox(${i})`}>
+          <img
+            src={src}
+            alt={`${gallery.title} – Bild ${i + 1}`}
+            class="w-full block"
+            loading={i === 0 ? 'eager' : 'lazy'}
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-zinc-950/95 z-50 hidden items-center justify-center" onclick="closeLightbox()">
+    <button class="absolute top-6 right-6 text-zinc-400 hover:text-white transition-colors" onclick="closeLightbox()">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+    <button id="lb-prev" class="absolute left-4 text-zinc-400 hover:text-white transition-colors p-4" onclick="event.stopPropagation(); prevImage()">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <img id="lightbox-img" src="" alt="" class="max-w-[90vw] max-h-[90vh] object-contain" onclick="event.stopPropagation()" />
+    <button id="lb-next" class="absolute right-4 text-zinc-400 hover:text-white transition-colors p-4" onclick="event.stopPropagation(); nextImage()">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+
+</BaseLayout>
+
+<script define:vars={{ images: gallery.images }}>
+  let current = 0;
+
+  function openLightbox(index) {
+    current = index;
+    document.getElementById('lightbox-img').src = images[current];
+    document.getElementById('lightbox').classList.remove('hidden');
+    document.getElementById('lightbox').classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.add('hidden');
+    document.getElementById('lightbox').classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  function prevImage() {
+    current = (current - 1 + images.length) % images.length;
+    document.getElementById('lightbox-img').src = images[current];
+  }
+
+  function nextImage() {
+    current = (current + 1) % images.length;
+    document.getElementById('lightbox-img').src = images[current];
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('lightbox').classList.contains('flex')) {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight') nextImage();
+    }
+  });
+
+  // Make functions global
+  window.openLightbox = openLightbox;
+  window.closeLightbox = closeLightbox;
+  window.prevImage = prevImage;
+  window.nextImage = nextImage;
+</script>

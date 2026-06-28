@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = [
+  {
+    slug: 'feuerwerk-turnkunst-2024-bericht',
+    title: 'Feuerwerk der Turnkunst 2024 – Mein Erlebnis',
+    date: '2024-03-15',
+    category: 'Sport',
+    cover: 'https://images.unsplash.com/photo-1577416412292-747c6607f055?w=1600&q=85',
+    content: `
+Das Feuerwerk der Turnkunst ist jedes Jahr aufs Neue ein spektakuläres Ereignis. Die Athleten zeigen Höchstleistungen, und als Fotograf ist es eine besondere Herausforderung: schnelle Bewegungen, wechselndes Licht, volle Hallen.
+
+## Die fotografische Herausforderung
+
+In Sporthallen ist das Licht selten optimal – oft eine Mischung aus Kunstlicht verschiedener Farbtemperaturen. Ich arbeite hier mit hohem ISO (meistens ISO 1600–3200) und kurzen Belichtungszeiten (1/500s oder schneller), um die Bewegungen scharf einzufrieren.
+
+## Was ich dieses Jahr mitgenommen habe
+
+Die Turnenden bringen so viel Ausdruck in ihre Bewegungen – der Moment kurz vor dem Abgang vom Barren, der Blick der Athletin beim Sprung. Das sind die Momente, auf die ich warte.
+
+Für mich ist Sportfotografie auch eine Lektion in Geduld und Antizipation: Den richtigen Moment zu treffen, braucht Übung und ein gutes Gespür für den Rhythmus der Bewegung.
+    `,
+  },
+  {
+    slug: 'tierfotografie-tipps',
+    title: 'Tipps für die Tierfotografie – Was ich gelernt habe',
+    date: '2023-09-08',
+    category: 'Tierwelt',
+    cover: 'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=1600&q=85',
+    content: `
+Nach Jahren der Tierfotografie – in Wildparks, in freier Natur, beim Eulenkasten – habe ich einige Dinge gelernt, die ich gerne früher gewusst hätte.
+
+## 1. Geduld ist keine Option, sie ist Pflicht
+
+Tierfotografie bedeutet oft: ankommen, warten, warten, warten. Und dann noch mehr warten. Das Tier kommt dann vielleicht – oder auch nicht. Man muss lernen, das Warten zu genießen.
+
+## 2. Licht entscheidet alles
+
+Das schönste Tier in schlechtem Licht ergibt ein mittelmäßiges Foto. Die goldene Stunde ist kein Klischee – morgens kurz nach Sonnenaufgang und abends kurz vor Sonnenuntergang macht das warme Seitenlicht Tiere plastisch und lebendig.
+
+## 3. Auf Augenhöhe gehen
+
+Fotos aus der Hocke oder vom Boden aus verändern alles. Anstatt von oben auf das Tier herabzuschauen, sehen wir es als Gleichgestellte – das macht die Wirkung eines Fotos enorm.
+
+## 4. Weniger ist mehr
+
+Nicht jede Tierart muss fotografiert werden. Lieber ein wirklich gutes Foto einer Kohlmeise als zehn mittelprächtige von seltenen Arten.
+    `,
+  },
+  {
+    slug: 'goldene-stunde-naturfotografie',
+    title: 'Die goldene Stunde – Magie in der Naturfotografie',
+    date: '2022-06-21',
+    category: 'Natur',
+    cover: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&q=85',
+    content: `
+Es gibt Momente in der Naturfotografie, die sich wie ein Geschenk anfühlen. Die goldene Stunde ist einer davon.
+
+## Was ist die goldene Stunde?
+
+Die goldene Stunde (auch "magische Stunde") ist der Zeitraum kurz nach Sonnenaufgang und kurz vor Sonnenuntergang. Das Licht fällt dann in einem flachen Winkel auf die Erde, ist warm, weich und wirft lange Schatten.
+
+## Warum ist sie so besonders?
+
+Das Licht der goldenen Stunde macht alles besser:
+- **Farben** werden wärmer und gesättigter
+- **Schatten** modellieren die Landschaft plastisch
+- **Strukturen** wie Gräser, Blätter oder Wasser leuchten von innen
+- Das harte Mittagslicht entfällt komplett
+
+## Mein Geheimtipp
+
+Ich stelle mir den Wecker auf 5:00 Uhr – ja, auch im Sommer. Die ersten 30 Minuten nach Sonnenaufgang sind fotografisch pure Magie. Und man ist meistens alleine.
+    `,
+  },
+];
+
+export function getStaticPaths() {
+  const allPosts = [
+    { slug: 'feuerwerk-turnkunst-2024-bericht' },
+    { slug: 'tierfotografie-tipps' },
+    { slug: 'goldene-stunde-naturfotografie' },
+  ];
+  return allPosts.map(p => ({ params: { slug: p.slug } }));
+}
+
+const post = posts.find(p => p.slug === Astro.params.slug)!;
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('de-DE', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
+}
+---
+
+<BaseLayout title={post.title}>
+
+  <!-- Hero image -->
+  <div class="relative h-[50vh] overflow-hidden">
+    <img src={post.cover} alt={post.title} class="w-full h-full object-cover opacity-50" />
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-zinc-950"></div>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-6 pb-20 -mt-20 relative z-10">
+
+    <!-- Meta -->
+    <div class="flex items-center gap-3 mb-4">
+      <span class="text-amber-400 text-xs tracking-widest uppercase">{post.category}</span>
+      <span class="text-zinc-600">·</span>
+      <time class="text-zinc-500 text-xs">{formatDate(post.date)}</time>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-thin mb-8">{post.title}</h1>
+
+    <!-- Content -->
+    <div class="prose-content text-zinc-400 font-light leading-relaxed space-y-4" set:html={
+      post.content
+        .trim()
+        .split('\n\n')
+        .map(block => {
+          if (block.startsWith('## ')) return `<h2 class="text-xl font-light text-white mt-8 mb-3">${block.replace('## ', '')}</h2>`;
+          if (block.includes('\n- ')) {
+            const items = block.split('\n').filter(l => l.startsWith('- ')).map(l => `<li>${l.replace('- ', '').replace(/\*\*(.*?)\*\*/g, '<strong class="text-zinc-200 font-normal">$1</strong>')}</li>`).join('');
+            return `<ul class="list-disc list-inside space-y-1 ml-2">${items}</ul>`;
+          }
+          return `<p>${block.replace(/\*\*(.*?)\*\*/g, '<strong class="text-zinc-200 font-normal">$1</strong>')}</p>`;
+        })
+        .join('')
+    } />
+
+    <!-- Back link -->
+    <div class="mt-16 pt-8 border-t border-zinc-800">
+      <a href="/blog" class="text-zinc-500 hover:text-amber-400 transition-colors text-sm tracking-wider uppercase inline-flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Zurück zum Blog
+      </a>
+    </div>
+
+  </div>
+</BaseLayout>

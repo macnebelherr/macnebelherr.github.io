@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = [
+  {
+    slug: 'feuerwerk-turnkunst-2024-bericht',
+    title: 'Feuerwerk der Turnkunst 2024 – Mein Erlebnis',
+    date: '2024-03-15',
+    category: 'Sport',
+    excerpt: 'Das Feuerwerk der Turnkunst war wieder ein beeindruckendes Spektakel. Hier berichte ich, wie ich die Veranstaltung erlebt habe und was fotografisch besonders herausfordernd war.',
+    cover: 'https://images.unsplash.com/photo-1577416412292-747c6607f055?w=800&q=80',
+  },
+  {
+    slug: 'tierfotografie-tipps',
+    title: 'Tipps für die Tierfotografie – Was ich gelernt habe',
+    date: '2023-09-08',
+    category: 'Tierwelt',
+    excerpt: 'Geduld ist alles. Nach Jahren der Tierfotografie habe ich einige Erfahrungen gesammelt, die ich hier teilen möchte.',
+    cover: 'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=800&q=80',
+  },
+  {
+    slug: 'goldene-stunde-naturfotografie',
+    title: 'Die goldene Stunde – Magie in der Naturfotografie',
+    date: '2022-06-21',
+    category: 'Natur',
+    excerpt: 'Kurz nach Sonnenaufgang und kurz vor Sonnenuntergang – in diesen Momenten passiert fotografisch das Schönste.',
+    cover: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80',
+  },
+];
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('de-DE', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
+}
+---
+
+<BaseLayout title="Blog" description="Blog – Guido Walther Fotografie">
+
+  <div class="pt-32 max-w-5xl mx-auto px-6 pb-20">
+
+    <!-- Header -->
+    <div class="mb-16">
+      <p class="text-amber-400 tracking-[0.2em] uppercase text-xs mb-3">Notizen & Berichte</p>
+      <h1 class="text-4xl md:text-5xl font-thin">Blog</h1>
+      <div class="mt-4 w-16 h-px bg-amber-400"></div>
+    </div>
+
+    <!-- Post list -->
+    <div class="space-y-12">
+      {posts.map(post => (
+        <article class="group grid md:grid-cols-[300px_1fr] gap-8 pb-12 border-b border-zinc-800 last:border-0">
+          <a href={`/blog/${post.slug}`} class="gallery-item block aspect-video md:aspect-auto overflow-hidden bg-zinc-900">
+            <img
+              src={post.cover}
+              alt={post.title}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </a>
+          <div class="flex flex-col justify-center">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-amber-400 text-xs tracking-widest uppercase">{post.category}</span>
+              <span class="text-zinc-600 text-xs">·</span>
+              <time class="text-zinc-600 text-xs">{formatDate(post.date)}</time>
+            </div>
+            <h2 class="text-xl font-light group-hover:text-amber-400 transition-colors mb-3">
+              <a href={`/blog/${post.slug}`}>{post.title}</a>
+            </h2>
+            <p class="text-zinc-500 font-light leading-relaxed text-sm">{post.excerpt}</p>
+            <a
+              href={`/blog/${post.slug}`}
+              class="mt-4 text-sm tracking-wider text-amber-400 hover:text-amber-300 transition-colors uppercase inline-flex items-center gap-2"
+            >
+              Weiterlesen
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</BaseLayout>

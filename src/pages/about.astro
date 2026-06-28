@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Über mich" description="Über Guido Walther – Hobbyfotograf aus Norddeutschland">
+
+  <div class="pt-32 max-w-5xl mx-auto px-6 pb-20">
+
+    <!-- Header -->
+    <div class="mb-16">
+      <p class="text-amber-400 tracking-[0.2em] uppercase text-xs mb-3">Der Fotograf</p>
+      <h1 class="text-4xl md:text-5xl font-thin">Über mich</h1>
+      <div class="mt-4 w-16 h-px bg-amber-400"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="grid md:grid-cols-2 gap-16 items-start">
+
+      <!-- Portrait placeholder -->
+      <div class="relative">
+        <div class="aspect-[3/4] bg-zinc-900 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&q=80"
+            alt="Portrait Guido Walther"
+            class="w-full h-full object-cover opacity-70"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/50 to-transparent"></div>
+        </div>
+        <div class="absolute -bottom-4 -right-4 w-24 h-24 border border-amber-400/30"></div>
+      </div>
+
+      <!-- Text -->
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-2xl font-thin text-amber-400 mb-4">Guido Walther</h2>
+          <p class="text-zinc-400 leading-relaxed font-light">
+            Seit vielen Jahren fasziniert mich die Fotografie als Weg, besondere Momente
+            festzuhalten und die Welt durch ein anderes Auge zu sehen. Was als Hobby begann,
+            ist inzwischen ein fester Teil meines Lebens geworden.
+          </p>
+        </div>
+
+        <p class="text-zinc-400 leading-relaxed font-light">
+          Mein fotografisches Interesse liegt vor allem bei der Tierwelt – die Geduld,
+          die nötig ist, um einen Wolf, eine Eule oder einen exotischen Vogel im richtigen
+          Moment zu erwischen, macht jede gelungene Aufnahme zu einem kleinen Triumph.
+        </p>
+
+        <p class="text-zinc-400 leading-relaxed font-light">
+          Daneben fotografiere ich gerne in der Natur, Landschaften und – wenn sich die
+          Gelegenheit ergibt – auch spannende Sportveranstaltungen wie das Feuerwerk der
+          Turnkunst.
+        </p>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-6 pt-6 border-t border-zinc-800">
+          <div>
+            <div class="text-3xl font-thin text-amber-400">6+</div>
+            <div class="text-zinc-500 text-sm mt-1">Galerien</div>
+          </div>
+          <div>
+            <div class="text-3xl font-thin text-amber-400">300+</div>
+            <div class="text-zinc-500 text-sm mt-1">Fotos auf Flickr</div>
+          </div>
+          <div>
+            <div class="text-3xl font-thin text-amber-400">2017</div>
+            <div class="text-zinc-500 text-sm mt-1">Erste Galerie</div>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div class="pt-4 flex gap-4 flex-wrap">
+          <a
+            href="https://guidowalther.myportfolio.com"
+            target="_blank"
+            rel="noopener"
+            class="px-6 py-2.5 border border-zinc-700 text-sm tracking-wider uppercase hover:border-amber-400 hover:text-amber-400 transition-colors"
+          >
+            Adobe Portfolio
+          </a>
+          <a
+            href="https://www.flickr.com/photos/macnebelherr"
+            target="_blank"
+            rel="noopener"
+            class="px-6 py-2.5 border border-zinc-700 text-sm tracking-wider uppercase hover:border-amber-400 hover:text-amber-400 transition-colors"
+          >
+            Flickr
+          </a>
+          <a
+            href="/contact"
+            class="px-6 py-2.5 bg-amber-400 text-zinc-950 text-sm tracking-wider uppercase font-medium hover:bg-amber-300 transition-colors"
+          >
+            Kontakt
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ausrüstung (Platzhalter) -->
+    <div class="mt-20 pt-16 border-t border-zinc-800">
+      <h2 class="text-2xl font-thin mb-8">Ausrüstung</h2>
+      <p class="text-zinc-500 text-sm italic">
+        Hier kannst du später deine Kameraausrüstung eintragen – Kameramodell, Objektive, etc.
+      </p>
+    </div>
+
+  </div>
+</BaseLayout>

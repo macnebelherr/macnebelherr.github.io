@@ -1,17 +1,161 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 
+const galleries = [
+  {
+    title: 'Feuerwerk der Turnkunst',
+    year: '2024',
+    category: 'Sport',
+    slug: 'feuerwerk-turnkunst-2024',
+    cover: 'https://images.unsplash.com/photo-1577416412292-747c6607f055?w=800&q=80',
+    description: 'Dynamische Sportfotografie beim Turnfest',
+  },
+  {
+    title: 'Wildpark Lüneburger Heide',
+    year: '2023',
+    category: 'Tierwelt',
+    slug: 'wildpark-lueneburger-heide-2023',
+    cover: 'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=800&q=80',
+    description: 'Tierfotografie in der Lüneburger Heide',
+  },
+  {
+    title: 'Natur',
+    year: '2022',
+    category: 'Natur',
+    slug: 'natur-2022',
+    cover: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80',
+    description: 'Naturaufnahmen aus verschiedenen Regionen',
+  },
+  {
+    title: 'Sandkuhle',
+    year: '2019',
+    category: 'Landschaft',
+    slug: 'sandkuhle-2019',
+    cover: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80',
+    description: 'Landschaftsfotografie an der Sandkuhle',
+  },
+  {
+    title: 'Eulenkasten',
+    year: '2019',
+    category: 'Tierwelt',
+    slug: 'eulenkasten-2019',
+    cover: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800&q=80',
+    description: 'Eulenfotografie mit besonderem Licht',
+  },
+  {
+    title: 'Vogelpark Walsrode',
+    year: '2017',
+    category: 'Tierwelt',
+    slug: 'vogelpark-walsrode-2017',
+    cover: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=800&q=80',
+    description: 'Exotische Vögel aus dem Weltvogelpark',
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Startseite">
+
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+      <img
+        src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=1600&q=85"
+        alt="Hero Hintergrundbild"
+        class="w-full h-full object-cover opacity-30"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-zinc-950/60 via-transparent to-zinc-950"></div>
+    </div>
+
+    <!-- Hero text -->
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <p class="text-amber-400 tracking-[0.3em] uppercase text-sm mb-6 animate-fade-in opacity-0">Fotografie</p>
+      <h1 class="text-5xl md:text-7xl font-thin tracking-tight mb-6 animate-fade-up opacity-0 delay-200">
+        Guido Walther
+      </h1>
+      <p class="text-zinc-400 text-lg md:text-xl font-light max-w-xl mx-auto animate-fade-up opacity-0 delay-300">
+        Tierwelt · Natur · Sport · Landschaft
+      </p>
+      <div class="mt-10 flex gap-4 justify-center animate-fade-up opacity-0 delay-400">
+        <a
+          href="/portfolio"
+          class="px-8 py-3 bg-amber-400 text-zinc-950 text-sm tracking-widest uppercase font-medium hover:bg-amber-300 transition-colors duration-200"
+        >
+          Portfolio
+        </a>
+        <a
+          href="/about"
+          class="px-8 py-3 border border-zinc-600 text-sm tracking-widest uppercase hover:border-amber-400 hover:text-amber-400 transition-colors duration-200"
+        >
+          Über mich
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg class="w-5 h-5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Gallery Preview -->
+  <section class="max-w-7xl mx-auto px-6 py-20">
+    <div class="flex items-end justify-between mb-12">
+      <div>
+        <p class="text-amber-400 tracking-[0.2em] uppercase text-xs mb-2">Ausgewählte Arbeiten</p>
+        <h2 class="text-3xl md:text-4xl font-thin">Galerien</h2>
+      </div>
+      <a href="/portfolio" class="text-sm tracking-wider text-zinc-400 hover:text-amber-400 transition-colors uppercase hidden md:block">
+        Alle ansehen →
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {galleries.map((gallery, i) => (
+        <a
+          href={`/portfolio/${gallery.slug}`}
+          class="gallery-item group block relative bg-zinc-900"
+        >
+          <div class="aspect-[4/3] overflow-hidden">
+            <img
+              src={gallery.cover}
+              alt={gallery.title}
+              class="w-full h-full object-cover"
+              loading={i > 2 ? 'lazy' : 'eager'}
+            />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-5">
+            <span class="text-amber-400 text-xs tracking-widest uppercase">{gallery.category} · {gallery.year}</span>
+            <h3 class="text-white text-lg font-light mt-1">{gallery.title}</h3>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="text-center mt-10 md:hidden">
+      <a href="/portfolio" class="text-sm tracking-wider text-zinc-400 hover:text-amber-400 transition-colors uppercase">
+        Alle Galerien ansehen →
+      </a>
+    </div>
+  </section>
+
+  <!-- Kurz über mich -->
+  <section class="border-t border-zinc-800 py-20">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <p class="text-amber-400 tracking-[0.2em] uppercase text-xs mb-4">Der Fotograf</p>
+      <h2 class="text-3xl font-thin mb-6">Licht einfangen. Momente festhalten.</h2>
+      <p class="text-zinc-400 font-light leading-relaxed max-w-2xl mx-auto">
+        Fotografie ist für mich mehr als ein Hobby – es ist die Kunst, den richtigen Moment
+        zu sehen und festzuhalten. Von schnellen Sportaufnahmen bis zur geduldigen Tierfotografie
+        suche ich immer nach dem besonderen Licht und dem einen Augenblick.
+      </p>
+      <a href="/about" class="inline-block mt-8 text-sm tracking-widest uppercase text-amber-400 hover:text-amber-300 transition-colors border-b border-amber-400/30 pb-1">
+        Mehr über mich
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>

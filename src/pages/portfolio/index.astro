@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const galleries = [
+  {
+    title: 'Feuerwerk der Turnkunst',
+    year: '2024',
+    category: 'Sport',
+    slug: 'feuerwerk-turnkunst-2024',
+    cover: 'https://images.unsplash.com/photo-1577416412292-747c6607f055?w=800&q=80',
+    description: 'Dynamische Sportfotografie beim Turnfest – Bewegung, Ausdruck und perfektes Timing.',
+  },
+  {
+    title: 'Wildpark Lüneburger Heide',
+    year: '2023',
+    category: 'Tierwelt',
+    slug: 'wildpark-lueneburger-heide-2023',
+    cover: 'https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=800&q=80',
+    description: 'Faszinierende Tierwelt in der Lüneburger Heide – nah und unverstellt.',
+  },
+  {
+    title: 'Natur',
+    year: '2022',
+    category: 'Natur',
+    slug: 'natur-2022',
+    cover: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80',
+    description: 'Naturaufnahmen aus Wäldern, Feldern und stillen Landschaften.',
+  },
+  {
+    title: 'Sandkuhle',
+    year: '2019',
+    category: 'Landschaft',
+    slug: 'sandkuhle-2019',
+    cover: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80',
+    description: 'Strukturen, Licht und Schatten in einer ungewöhnlichen Landschaft.',
+  },
+  {
+    title: 'Eulenkasten',
+    year: '2019',
+    category: 'Tierwelt',
+    slug: 'eulenkasten-2019',
+    cover: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=800&q=80',
+    description: 'Geduldige Nahaufnahmen von Eulen in ihrem natürlichen Umfeld.',
+  },
+  {
+    title: 'Vogelpark Walsrode',
+    year: '2017',
+    category: 'Tierwelt',
+    slug: 'vogelpark-walsrode-2017',
+    cover: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?w=800&q=80',
+    description: 'Farbenfrohe und exotische Vögel aus dem Weltvogelpark Walsrode.',
+  },
+];
+
+const categories = ['Alle', ...new Set(galleries.map(g => g.category))];
+---
+
+<BaseLayout title="Portfolio" description="Fotografie-Portfolio von Guido Walther – Tierwelt, Natur, Sport und Landschaft">
+
+  <!-- Page Header -->
+  <div class="pt-32 pb-16 px-6 max-w-7xl mx-auto">
+    <p class="text-amber-400 tracking-[0.2em] uppercase text-xs mb-3">Meine Arbeiten</p>
+    <h1 class="text-4xl md:text-5xl font-thin">Portfolio</h1>
+    <div class="mt-4 w-16 h-px bg-amber-400"></div>
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="max-w-7xl mx-auto px-6 mb-10">
+    <div class="flex gap-3 flex-wrap" id="filter-buttons">
+      {categories.map((cat, i) => (
+        <button
+          data-filter={cat}
+          class={`px-5 py-2 text-xs tracking-widest uppercase border transition-all duration-200 ${
+            i === 0
+              ? 'border-amber-400 text-amber-400 bg-amber-400/10'
+              : 'border-zinc-700 text-zinc-400 hover:border-amber-400 hover:text-amber-400'
+          }`}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="max-w-7xl mx-auto px-6 pb-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+      {galleries.map(gallery => (
+        <a
+          href={`/portfolio/${gallery.slug}`}
+          class="gallery-item group block bg-zinc-900"
+          data-category={gallery.category}
+        >
+          <div class="aspect-[4/3] overflow-hidden">
+            <img
+              src={gallery.cover}
+              alt={gallery.title}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-amber-400 text-xs tracking-widest uppercase">{gallery.category}</span>
+              <span class="text-zinc-600 text-xs">{gallery.year}</span>
+            </div>
+            <h2 class="text-white font-light text-lg group-hover:text-amber-400 transition-colors">{gallery.title}</h2>
+            <p class="text-zinc-500 text-sm mt-2 leading-relaxed">{gallery.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const items = document.querySelectorAll<HTMLElement>('[data-category]');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      buttons.forEach(b => {
+        b.classList.remove('border-amber-400', 'text-amber-400', 'bg-amber-400/10');
+        b.classList.add('border-zinc-700', 'text-zinc-400');
+      });
+      btn.classList.add('border-amber-400', 'text-amber-400', 'bg-amber-400/10');
+      btn.classList.remove('border-zinc-700', 'text-zinc-400');
+
+      items.forEach(item => {
+        if (filter === 'Alle' || item.dataset.category === filter) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

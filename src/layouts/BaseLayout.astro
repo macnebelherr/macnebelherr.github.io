@@ -1,0 +1,129 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Fotografie-Portfolio von Guido Walther' } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Start' },
+  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/about', label: 'Über mich' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Kontakt' },
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} | Guido Walther Fotografie</title>
+  </head>
+  <body class="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+      <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/" class="text-xl font-light tracking-widest uppercase text-amber-400 hover:text-amber-300 transition-colors">
+          Guido Walther
+        </a>
+
+        <!-- Desktop nav -->
+        <ul class="hidden md:flex gap-8">
+          {navLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class={`text-sm tracking-wider uppercase transition-colors duration-200 ${
+                  currentPath === link.href
+                    ? 'text-amber-400'
+                    : 'text-zinc-300 hover:text-amber-400'
+                }`}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <!-- Mobile menu button -->
+        <button id="menu-toggle" class="md:hidden text-zinc-300 hover:text-amber-400 transition-colors" aria-label="Menü öffnen">
+          <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-zinc-950/95 backdrop-blur-md border-t border-zinc-800">
+        <ul class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
+          {navLinks.map(link => (
+            <li>
+              <a
+                href={link.href}
+                class={`block text-sm tracking-wider uppercase py-2 transition-colors ${
+                  currentPath === link.href ? 'text-amber-400' : 'text-zinc-300 hover:text-amber-400'
+                }`}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-800 mt-20">
+      <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-zinc-500 text-sm">© {new Date().getFullYear()} Guido Walther. Alle Rechte vorbehalten.</p>
+        <div class="flex gap-6">
+          <a href="https://www.flickr.com/photos/macnebelherr" target="_blank" rel="noopener" class="text-zinc-500 hover:text-amber-400 transition-colors text-sm tracking-wide">Flickr</a>
+          <a href="https://guidowalther.myportfolio.com" target="_blank" rel="noopener" class="text-zinc-500 hover:text-amber-400 transition-colors text-sm tracking-wide">Adobe Portfolio</a>
+          <a href="/contact" class="text-zinc-500 hover:text-amber-400 transition-colors text-sm tracking-wide">Kontakt</a>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
+
+<script>
+  // Scroll-Effekt für Header
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('bg-zinc-950/90', 'backdrop-blur-md', 'border-b', 'border-zinc-800');
+    } else {
+      header?.classList.remove('bg-zinc-950/90', 'backdrop-blur-md', 'border-b', 'border-zinc-800');
+    }
+  });
+
+  // Mobile Menü
+  const toggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+  });
+</script>
