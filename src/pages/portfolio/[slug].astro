@@ -100,16 +100,16 @@ const gallery = galleries.find(g => g.slug === Astro.params.slug)!;
 
   <!-- Back link + header -->
   <div class="pt-32 pb-12 px-6 max-w-7xl mx-auto">
-    <a href="/portfolio" class="text-zinc-500 hover:text-amber-400 transition-colors text-sm tracking-wider uppercase inline-flex items-center gap-2 mb-8">
+    <a href="/portfolio" class="text-zinc-500 hover:text-orange-400 transition-colors text-sm tracking-wider uppercase inline-flex items-center gap-2 mb-8">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
       </svg>
       Zurück zum Portfolio
     </a>
-    <p class="text-amber-400 tracking-[0.2em] uppercase text-xs mb-2">{gallery.category} · {gallery.year}</p>
+    <p class="text-orange-400 tracking-[0.2em] uppercase text-xs mb-2">{gallery.category} · {gallery.year}</p>
     <h1 class="text-4xl md:text-5xl font-thin">{gallery.title}</h1>
     <p class="text-zinc-400 mt-4 max-w-xl font-light leading-relaxed">{gallery.description}</p>
-    <div class="mt-4 w-16 h-px bg-amber-400"></div>
+    <div class="mt-4 w-16 h-px bg-orange-400"></div>
   </div>
 
   <!-- Image Grid -->

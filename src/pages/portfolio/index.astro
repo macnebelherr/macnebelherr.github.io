@@ -59,9 +59,9 @@ const categories = ['Alle', ...new Set(galleries.map(g => g.category))];
 
   <!-- Page Header -->
   <div class="pt-32 pb-16 px-6 max-w-7xl mx-auto">
-    <p class="text-amber-400 tracking-[0.2em] uppercase text-xs mb-3">Meine Arbeiten</p>
+    <p class="text-orange-400 tracking-[0.2em] uppercase text-xs mb-3">Meine Arbeiten</p>
     <h1 class="text-4xl md:text-5xl font-thin">Portfolio</h1>
-    <div class="mt-4 w-16 h-px bg-amber-400"></div>
+    <div class="mt-4 w-16 h-px bg-orange-400"></div>
   </div>
 
   <!-- Filter Buttons -->
@@ -72,8 +72,8 @@ const categories = ['Alle', ...new Set(galleries.map(g => g.category))];
           data-filter={cat}
           class={`px-5 py-2 text-xs tracking-widest uppercase border transition-all duration-200 ${
             i === 0
-              ? 'border-amber-400 text-amber-400 bg-amber-400/10'
-              : 'border-zinc-700 text-zinc-400 hover:border-amber-400 hover:text-amber-400'
+              ? 'border-orange-400 text-orange-400 bg-orange-400/10'
+              : 'border-zinc-700 text-zinc-400 hover:border-orange-400 hover:text-orange-400'
           }`}
         >
           {cat}
@@ -101,10 +101,10 @@ const categories = ['Alle', ...new Set(galleries.map(g => g.category))];
           </div>
           <div class="p-5">
             <div class="flex items-center justify-between mb-2">
-              <span class="text-amber-400 text-xs tracking-widest uppercase">{gallery.category}</span>
+              <span class="text-orange-400 text-xs tracking-widest uppercase">{gallery.category}</span>
               <span class="text-zinc-600 text-xs">{gallery.year}</span>
             </div>
-            <h2 class="text-white font-light text-lg group-hover:text-amber-400 transition-colors">{gallery.title}</h2>
+            <h2 class="text-white font-light text-lg group-hover:text-orange-400 transition-colors">{gallery.title}</h2>
             <p class="text-zinc-500 text-sm mt-2 leading-relaxed">{gallery.description}</p>
           </div>
         </a>
@@ -123,10 +123,10 @@ const categories = ['Alle', ...new Set(galleries.map(g => g.category))];
       const filter = btn.dataset.filter;
 
       buttons.forEach(b => {
-        b.classList.remove('border-amber-400', 'text-amber-400', 'bg-amber-400/10');
+        b.classList.remove('border-orange-400', 'text-orange-400', 'bg-orange-400/10');
         b.classList.add('border-zinc-700', 'text-zinc-400');
       });
-      btn.classList.add('border-amber-400', 'text-amber-400', 'bg-amber-400/10');
+      btn.classList.add('border-orange-400', 'text-orange-400', 'bg-orange-400/10');
       btn.classList.remove('border-zinc-700', 'text-zinc-400');
 
       items.forEach(item => {

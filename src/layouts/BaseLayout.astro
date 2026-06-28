@@ -32,7 +32,7 @@ const navLinks = [
     <!-- Navigation -->
     <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="/" class="text-xl font-light tracking-widest uppercase text-amber-400 hover:text-amber-300 transition-colors">
+        <a href="/" class="text-xl font-light tracking-widest uppercase text-orange-400 hover:text-orange-300 transition-colors">
           Guido Walther
         </a>
 
@@ -44,8 +44,8 @@ const navLinks = [
                 href={link.href}
                 class={`text-sm tracking-wider uppercase transition-colors duration-200 ${
                   currentPath === link.href
-                    ? 'text-amber-400'
-                    : 'text-zinc-300 hover:text-amber-400'
+                    ? 'text-orange-400'
+                    : 'text-zinc-300 hover:text-orange-400'
                 }`}
               >
                 {link.label}
@@ -55,7 +55,7 @@ const navLinks = [
         </ul>
 
         <!-- Mobile menu button -->
-        <button id="menu-toggle" class="md:hidden text-zinc-300 hover:text-amber-400 transition-colors" aria-label="Menü öffnen">
+        <button id="menu-toggle" class="md:hidden text-zinc-300 hover:text-orange-400 transition-colors" aria-label="Menü öffnen">
           <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
@@ -73,7 +73,7 @@ const navLinks = [
               <a
                 href={link.href}
                 class={`block text-sm tracking-wider uppercase py-2 transition-colors ${
-                  currentPath === link.href ? 'text-amber-400' : 'text-zinc-300 hover:text-amber-400'
+                  currentPath === link.href ? 'text-orange-400' : 'text-zinc-300 hover:text-orange-400'
                 }`}
               >
                 {link.label}
@@ -94,9 +94,9 @@ const navLinks = [
       <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
         <p class="text-zinc-500 text-sm">© {new Date().getFullYear()} Guido Walther. Alle Rechte vorbehalten.</p>
         <div class="flex gap-6">
-          <a href="https://www.flickr.com/photos/macnebelherr" target="_blank" rel="noopener" class="text-zinc-500 hover:text-amber-400 transition-colors text-sm tracking-wide">Flickr</a>
-          <a href="https://guidowalther.myportfolio.com" target="_blank" rel="noopener" class="text-zinc-500 hover:text-amber-400 transition-colors text-sm tracking-wide">Adobe Portfolio</a>
-          <a href="/contact" class="text-zinc-500 hover:text-amber-400 transition-colors text-sm tracking-wide">Kontakt</a>
+          <a href="https://www.flickr.com/photos/macnebelherr" target="_blank" rel="noopener" class="text-zinc-500 hover:text-orange-400 transition-colors text-sm tracking-wide">Flickr</a>
+          <a href="https://guidowalther.myportfolio.com" target="_blank" rel="noopener" class="text-zinc-500 hover:text-orange-400 transition-colors text-sm tracking-wide">Adobe Portfolio</a>
+          <a href="/contact" class="text-zinc-500 hover:text-orange-400 transition-colors text-sm tracking-wide">Kontakt</a>
         </div>
       </div>
     </footer>
