@@ -74,7 +74,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             href="https://guidowalther.myportfolio.com"
             target="_blank"
             rel="noopener"
-            class="px-6 py-2.5 border border-zinc-700 text-sm tracking-wider uppercase hover:border-orange-400 hover:text-orange-400 transition-colors"
+            class="px-6 py-2.5 rounded-full border border-zinc-700 text-sm tracking-wider uppercase hover:border-orange-400 hover:text-orange-400 transition-colors"
           >
             Adobe Portfolio
           </a>
@@ -82,13 +82,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             href="https://www.flickr.com/photos/macnebelherr"
             target="_blank"
             rel="noopener"
-            class="px-6 py-2.5 border border-zinc-700 text-sm tracking-wider uppercase hover:border-orange-400 hover:text-orange-400 transition-colors"
+            class="px-6 py-2.5 rounded-full border border-zinc-700 text-sm tracking-wider uppercase hover:border-orange-400 hover:text-orange-400 transition-colors"
           >
             Flickr
           </a>
           <a
             href="/contact"
-            class="px-6 py-2.5 bg-orange-400 text-zinc-950 text-sm tracking-wider uppercase font-medium hover:bg-orange-300 transition-colors"
+            class="px-6 py-2.5 rounded-full bg-orange-400 text-zinc-950 text-sm tracking-wider uppercase font-medium hover:bg-orange-300 transition-colors"
           >
             Kontakt
           </a>
@@ -96,12 +96,75 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
 
-    <!-- Ausrüstung (Platzhalter) -->
+    <!-- Ausrüstung -->
     <div class="mt-20 pt-16 border-t border-zinc-800">
-      <h2 class="text-2xl font-thin mb-8">Ausrüstung</h2>
-      <p class="text-zinc-500 text-sm italic">
-        Hier kannst du später deine Kameraausrüstung eintragen – Kameramodell, Objektive, etc.
-      </p>
+      <p class="text-orange-400 tracking-[0.2em] uppercase text-xs mb-2">Mein Equipment</p>
+      <h2 class="text-2xl font-thin mb-10">Ausrüstung</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- Kamera 1 -->
+        <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800">
+          <div class="flex items-start gap-4">
+            <div class="text-orange-400 mt-1">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-white font-light text-lg">Sony A7 V</h3>
+              <p class="text-orange-400 text-xs tracking-wider uppercase mt-0.5">Vollformat · 35mm</p>
+              <p class="text-zinc-500 text-sm mt-2 leading-relaxed">
+                Meine Hauptkamera für anspruchsvolle Aufnahmen – perfekt für Tierwelt, Natur und Landschaft mit herausragender Bildqualität bei wenig Licht.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kamera 2 -->
+        <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800">
+          <div class="flex items-start gap-4">
+            <div class="text-orange-400 mt-1">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-white font-light text-lg">Sony A6700</h3>
+              <p class="text-orange-400 text-xs tracking-wider uppercase mt-0.5">APS-C · Crop-Faktor 1,5×</p>
+              <p class="text-zinc-500 text-sm mt-2 leading-relaxed">
+                Meine kompakte Zweitkamera – ideal für Sport und Tierfotografie, wo der APS-C-Crop-Faktor effektiv mehr Reichweite bringt.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Objektive -->
+        <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800 md:col-span-2">
+          <div class="flex items-start gap-4">
+            <div class="text-orange-400 mt-1">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="12" y1="2" x2="12" y2="4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="12" y1="20" x2="12" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="2" y1="12" x2="4" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="20" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-white font-light text-lg">Objektive</h3>
+              <p class="text-orange-400 text-xs tracking-wider uppercase mt-0.5">Je nach Einsatz</p>
+              <p class="text-zinc-500 text-sm mt-2 leading-relaxed">
+                Ich wähle meine Objektive je nach Motiv und Situation – von Weitwinkel für Landschaften bis Tele für scheue Tiere und Sportaufnahmen aus der Distanz.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
   </div>
