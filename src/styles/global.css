@@ -43,6 +43,77 @@
   transform: scale(1.05);
 }
 
+/* Hero: langsamer Ken-Burns-Zoom auf das Hintergrundbild */
+@keyframes heroZoom {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.12); }
+}
+
+.hero-zoom {
+  animation: heroZoom 30s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Bokeh-Lichtpunkte: weiche, unscharfe Kreise, die langsam aufsteigen */
+.bokeh-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bokeh {
+  position: absolute;
+  bottom: -200px;
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(var(--tint), 0.35),
+    rgba(var(--tint), 0.12) 55%,
+    transparent 75%
+  );
+  filter: blur(6px);
+  opacity: 0;
+  animation: bokehFloat var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  will-change: transform, opacity;
+}
+
+@keyframes bokehFloat {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.8);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-55vh) translateX(3vw) scale(1);
+    opacity: 0.35;
+  }
+  88% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(-110vh) translateX(-2vw) scale(1.15);
+    opacity: 0;
+  }
+}
+
+/* Nutzer mit reduzierter Bewegung: Animationen abschalten */
+@media (prefers-reduced-motion: reduce) {
+  .hero-zoom,
+  .bokeh {
+    animation: none;
+  }
+  .bokeh {
+    display: none;
+  }
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
