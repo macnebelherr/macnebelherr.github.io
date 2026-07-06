@@ -7,7 +7,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="pt-32 max-w-5xl mx-auto px-6 pb-20">
 
     <!-- Header -->
-    <div class="mb-16">
+    <div class="mb-16 animate-fade-up opacity-0">
       <p class="text-orange-400 tracking-[0.2em] uppercase text-xs mb-3">Der Fotograf</p>
       <h1 class="text-4xl md:text-5xl font-thin">Über mich</h1>
       <div class="mt-4 w-16 h-px bg-orange-400"></div>
@@ -17,8 +17,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="grid md:grid-cols-2 gap-16 items-start">
 
       <!-- Portrait placeholder -->
-      <div class="relative">
-        <div class="aspect-[3/4] bg-zinc-900 overflow-hidden">
+      <div class="relative animate-fade-up opacity-0 delay-200">
+        <div class="aspect-[3/4] bg-zinc-900 overflow-hidden rounded-lg portrait-frame">
           <img
             src="/images/me.jpeg"
             alt="Portrait Guido Walther"
@@ -26,11 +26,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           />
           <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/50 to-transparent"></div>
         </div>
-        <div class="absolute -bottom-4 -right-4 w-24 h-24 border border-orange-400/30"></div>
+        <div class="absolute -bottom-4 -right-4 w-24 h-24 border border-orange-400/30 rounded-lg"></div>
       </div>
 
       <!-- Text -->
-      <div class="space-y-6">
+      <div class="space-y-6 animate-fade-up opacity-0 delay-300">
         <div>
           <h2 class="text-2xl font-thin text-orange-400 mb-4">Guido Walther</h2>
           <p class="text-zinc-400 leading-relaxed font-light">
@@ -112,7 +112,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="grid md:grid-cols-2 gap-6">
 
         <!-- Kamera 1 -->
-        <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800">
+        <div class="reveal equipment-card bg-zinc-900 p-6 rounded-lg border border-zinc-800">
           <div class="flex items-start gap-4">
             <div class="text-orange-400 mt-1">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,7 +131,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
 
         <!-- Kamera 2 -->
-        <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800">
+        <div class="reveal equipment-card bg-zinc-900 p-6 rounded-lg border border-zinc-800">
           <div class="flex items-start gap-4">
             <div class="text-orange-400 mt-1">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,7 +150,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
 
         <!-- Objektive -->
-        <div class="bg-zinc-900 p-6 rounded-lg border border-zinc-800 md:col-span-2">
+        <div class="reveal equipment-card bg-zinc-900 p-6 rounded-lg border border-zinc-800 md:col-span-2">
           <div class="flex items-start gap-4">
             <div class="text-orange-400 mt-1">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,3 +177,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   </div>
 </BaseLayout>
+
+<script>
+  // Elemente mit .reveal weich einblenden, sobald sie ins Bild scrollen
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry, ) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    (el as HTMLElement).style.transitionDelay = `${i * 120}ms`;
+    observer.observe(el);
+  });
+</script>
