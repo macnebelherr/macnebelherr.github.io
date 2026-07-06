@@ -183,6 +183,36 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Während einer View Transition kein Smooth-Scrolling: der Router stellt
+   die Scroll-Position wieder her, sichtbares Mitscrollen wäre störend. */
+html[data-astro-transition] {
+  scroll-behavior: auto;
+}
+
+/* View Transitions: ruhigerer, fotografischer Crossfade */
+::view-transition-group(*),
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: ease;
+}
+
+/* Filmstreifen: bei reduzierter Bewegung kein Pinning und kein Scroll-Hijacking,
+   stattdessen normaler horizontaler Scroll-Container */
+@media (prefers-reduced-motion: reduce) {
+  .filmstrip-outer {
+    height: auto !important;
+  }
+  .filmstrip-sticky {
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .filmstrip-viewport {
+    overflow-x: auto !important;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

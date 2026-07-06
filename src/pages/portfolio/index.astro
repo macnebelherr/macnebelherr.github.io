@@ -96,6 +96,7 @@ const categories = ['Alle', ...new Set(galleries.map(g => g.category))];
               src={gallery.cover}
               alt={gallery.title}
               class="w-full h-full object-cover"
+              transition:name={`gallery-image-${gallery.slug}`}
               loading="lazy"
             />
           </div>
@@ -115,27 +116,25 @@ const categories = ['Alle', ...new Set(galleries.map(g => g.category))];
 </BaseLayout>
 
 <script>
-  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
-  const items = document.querySelectorAll<HTMLElement>('[data-category]');
+  // Kategorie-Filter: per Event-Delegation, ClientRouter-kompatibel
+  // (überlebt DOM-Swaps, keine doppelten Listener)
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>('#filter-buttons [data-filter]');
+    if (!btn) return;
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
+    const filter = btn.dataset.filter;
+    const buttons = document.querySelectorAll<HTMLButtonElement>('#filter-buttons [data-filter]');
+    const items = document.querySelectorAll<HTMLElement>('#gallery-grid [data-category]');
 
-      buttons.forEach(b => {
-        b.classList.remove('border-orange-400', 'text-orange-400', 'bg-orange-400/10');
-        b.classList.add('border-zinc-700', 'text-zinc-400');
-      });
-      btn.classList.add('border-orange-400', 'text-orange-400', 'bg-orange-400/10');
-      btn.classList.remove('border-zinc-700', 'text-zinc-400');
+    buttons.forEach(b => {
+      b.classList.remove('border-orange-400', 'text-orange-400', 'bg-orange-400/10');
+      b.classList.add('border-zinc-700', 'text-zinc-400');
+    });
+    btn.classList.add('border-orange-400', 'text-orange-400', 'bg-orange-400/10');
+    btn.classList.remove('border-zinc-700', 'text-zinc-400');
 
-      items.forEach(item => {
-        if (filter === 'Alle' || item.dataset.category === filter) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+    items.forEach(item => {
+      item.style.display = (filter === 'Alle' || item.dataset.category === filter) ? 'block' : 'none';
     });
   });
 </script>

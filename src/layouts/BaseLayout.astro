@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
 interface Props {
@@ -25,11 +26,12 @@ const navLinks = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title} | Guido Walther Fotografie</title>
+    <ClientRouter />
   </head>
   <body class="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col">
 
     <!-- Navigation -->
-    <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" transition:name="site-header">
       <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="/" class="text-xl font-light tracking-widest uppercase text-orange-400 hover:text-orange-300 transition-colors">
           Guido Walther
@@ -105,30 +107,28 @@ const navLinks = [
 </html>
 
 <script>
-  // Scroll-Effekt für Header
-  const header = document.getElementById('site-header');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header?.classList.add('bg-zinc-950/90', 'backdrop-blur-md', 'border-b', 'border-zinc-800');
-    } else {
-      header?.classList.remove('bg-zinc-950/90', 'backdrop-blur-md', 'border-b', 'border-zinc-800');
-    }
-  });
+  // Alle Listener hängen an window/document (Event-Delegation) und lösen
+  // DOM-Referenzen erst zur Laufzeit auf – so überleben sie die DOM-Swaps
+  // des ClientRouters ohne Doppelregistrierung oder Leaks.
 
-  // Mobile Menü
-  const toggle = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('icon-open');
-  const iconClose = document.getElementById('icon-close');
+  // Header-Scroll-Effekt
+  const HEADER_CLASSES = ['bg-zinc-950/90', 'backdrop-blur-md', 'border-b', 'border-zinc-800'];
+  function syncHeader() {
+    const header = document.getElementById('site-header');
+    const scrolled = window.scrollY > 50;
+    HEADER_CLASSES.forEach((c) => header?.classList.toggle(c, scrolled));
+  }
+  window.addEventListener('scroll', syncHeader, { passive: true });
 
-  toggle?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
-    iconOpen?.classList.toggle('hidden');
-    iconClose?.classList.toggle('hidden');
+  // Mobile Menü (Delegation)
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('#menu-toggle')) return;
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    document.getElementById('icon-open')?.classList.toggle('hidden');
+    document.getElementById('icon-close')?.classList.toggle('hidden');
   });
 
   // Scroll-Reveal: alle .reveal-Elemente blenden weich ein, sobald sie ins Bild scrollen.
-  // Gilt seitenweit – jede Seite kann Elemente einfach mit class="reveal" markieren.
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -141,8 +141,30 @@ const navLinks = [
     { threshold: 0.12 }
   );
 
-  document.querySelectorAll('.reveal').forEach((el, i) => {
-    (el as HTMLElement).style.transitionDelay = `${(i % 6) * 100}ms`;
-    revealObserver.observe(el);
+  // Feuert beim ersten Laden UND nach jeder Client-Navigation
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLElement>('.reveal:not(.in-view)').forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 6) * 100}ms`;
+      revealObserver.observe(el);
+    });
+    syncHeader();
+
+    // Lens-Flare auf der Startseite nur einmal pro Besuch abspielen
+    const flare = document.querySelector('.flare-container');
+    if (flare) {
+      if (sessionStorage.getItem('flare-shown')) flare.remove();
+      else sessionStorage.setItem('flare-shown', '1');
+    }
+  });
+
+  document.addEventListener('astro:before-swap', () => revealObserver.disconnect());
+
+  // Läuft synchron VOR dem Snapshot der neuen Seite: sichtbare .reveal-Elemente
+  // sofort einblenden, damit Morph-Ziele nicht unsichtbar sind und nichts nachflackert.
+  document.addEventListener('astro:after-swap', () => {
+    document.querySelectorAll<HTMLElement>('.reveal').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in-view');
+    });
   });
 </script>

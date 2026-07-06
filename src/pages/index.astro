@@ -106,45 +106,57 @@ const galleries = [
     </div>
   </section>
 
-  <!-- Gallery Preview -->
-  <section class="max-w-7xl mx-auto px-6 py-20">
-    <div class="flex items-end justify-between mb-12">
-      <div>
-        <p class="text-orange-400 tracking-[0.2em] uppercase text-xs mb-2">Ausgewählte Arbeiten</p>
-        <h2 class="text-3xl md:text-4xl font-thin">Galerien</h2>
-      </div>
-      <a href="/portfolio" class="text-sm tracking-wider text-zinc-400 hover:text-orange-400 transition-colors uppercase hidden md:block">
-        Alle ansehen →
-      </a>
-    </div>
+  <!-- Filmstreifen-Galerie: pinnt beim Scrollen und zieht horizontal durchs Bild -->
+  <section id="filmstrip-section" class="filmstrip-outer relative md:h-[300vh]">
+    <div class="filmstrip-sticky md:sticky md:top-0 md:h-screen md:overflow-hidden flex flex-col justify-center py-20 md:py-0">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {galleries.map((gallery, i) => (
-        <a
-          href={`/portfolio/${gallery.slug}`}
-          class="reveal gallery-item group block relative bg-zinc-900 rounded-xl overflow-hidden"
-        >
-          <div class="aspect-[4/3] overflow-hidden">
-            <img
-              src={gallery.cover}
-              alt={gallery.title}
-              class="w-full h-full object-cover"
-              loading={i > 2 ? 'lazy' : 'eager'}
-            />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-5">
-            <span class="text-orange-400 text-xs tracking-widest uppercase">{gallery.category} · {gallery.year}</span>
-            <h3 class="text-white text-lg font-light mt-1">{gallery.title}</h3>
-          </div>
+      <div class="max-w-7xl mx-auto px-6 w-full mb-10 flex items-end justify-between">
+        <div>
+          <p class="text-orange-400 tracking-[0.2em] uppercase text-xs mb-2">Ausgewählte Arbeiten</p>
+          <h2 class="text-3xl md:text-4xl font-thin">Galerien</h2>
+        </div>
+        <a href="/portfolio" class="text-sm tracking-wider text-zinc-400 hover:text-orange-400 transition-colors uppercase hidden md:block">
+          Alle ansehen →
         </a>
-      ))}
-    </div>
+      </div>
 
-    <div class="text-center mt-10 md:hidden">
-      <a href="/portfolio" class="text-sm tracking-wider text-zinc-400 hover:text-orange-400 transition-colors uppercase">
-        Alle Galerien ansehen →
-      </a>
+      <div id="filmstrip-viewport" class="filmstrip-viewport overflow-x-auto md:overflow-x-hidden snap-x snap-mandatory md:snap-none">
+        <div id="filmstrip-track" class="flex gap-5 px-6 w-max md:will-change-transform">
+          {galleries.map((gallery, i) => (
+            <a
+              href={`/portfolio/${gallery.slug}`}
+              class="gallery-item group block relative bg-zinc-900 rounded-xl overflow-hidden shrink-0 snap-start w-[78vw] sm:w-[55vw] md:w-[38vw] lg:w-[32vw] h-[55vh] md:h-[62vh]"
+            >
+              <img
+                src={gallery.cover}
+                alt={gallery.title}
+                class="w-full h-full object-cover"
+                transition:name={`gallery-image-${gallery.slug}`}
+                loading={i > 2 ? 'lazy' : 'eager'}
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <span class="text-orange-400 text-xs tracking-widest uppercase">{gallery.category} · {gallery.year}</span>
+                <h3 class="text-white text-xl font-light mt-1">{gallery.title}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Fortschrittsbalken (nur Desktop) -->
+      <div class="max-w-7xl mx-auto px-6 w-full mt-10 hidden md:block">
+        <div class="h-px bg-zinc-800 relative overflow-hidden">
+          <div id="filmstrip-progress" class="absolute inset-0 bg-orange-400 origin-left" style="transform: scaleX(0)"></div>
+        </div>
+      </div>
+
+      <div class="text-center mt-10 md:hidden">
+        <a href="/portfolio" class="text-sm tracking-wider text-zinc-400 hover:text-orange-400 transition-colors uppercase">
+          Alle Galerien ansehen →
+        </a>
+      </div>
+
     </div>
   </section>
 
@@ -165,3 +177,45 @@ const galleries = [
   </section>
 
 </BaseLayout>
+
+<script>
+  // Filmstreifen: Scroll-Fortschritt der Sektion → horizontale Bewegung des Tracks.
+  // Läuft nur ab Desktop-Breite; mobil scrollt der Track nativ (overflow-x-auto).
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function updateFilmstrip() {
+    const section = document.getElementById('filmstrip-section');
+    const viewport = document.getElementById('filmstrip-viewport');
+    const track = document.getElementById('filmstrip-track');
+    if (!section || !viewport || !track) return;
+
+    if (window.innerWidth < 768 || reducedMotion.matches) {
+      track.style.transform = '';
+      return;
+    }
+
+    const rect = section.getBoundingClientRect();
+    const total = section.offsetHeight - window.innerHeight;
+    const progress = Math.min(1, Math.max(0, -rect.top / total));
+
+    const maxX = track.scrollWidth - viewport.clientWidth;
+    track.style.transform = `translateX(${-progress * maxX}px)`;
+
+    const bar = document.getElementById('filmstrip-progress');
+    if (bar) bar.style.transform = `scaleX(${progress})`;
+  }
+
+  let ticking = false;
+  function requestUpdate() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateFilmstrip();
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+  document.addEventListener('astro:page-load', updateFilmstrip);
+</script>
