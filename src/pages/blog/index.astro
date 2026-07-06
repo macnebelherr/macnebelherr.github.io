@@ -40,7 +40,7 @@ function formatDate(dateStr: string) {
   <div class="pt-32 max-w-5xl mx-auto px-6 pb-20">
 
     <!-- Header -->
-    <div class="mb-16">
+    <div class="mb-16 animate-fade-up opacity-0">
       <p class="text-orange-400 tracking-[0.2em] uppercase text-xs mb-3">Notizen & Berichte</p>
       <h1 class="text-4xl md:text-5xl font-thin">Blog</h1>
       <div class="mt-4 w-16 h-px bg-orange-400"></div>
@@ -49,8 +49,8 @@ function formatDate(dateStr: string) {
     <!-- Post list -->
     <div class="space-y-12">
       {posts.map(post => (
-        <article class="group grid md:grid-cols-[300px_1fr] gap-8 pb-12 border-b border-zinc-800 last:border-0">
-          <a href={`/blog/${post.slug}`} class="gallery-item block aspect-video md:aspect-auto overflow-hidden bg-zinc-900">
+        <article class="reveal group grid md:grid-cols-[300px_1fr] gap-8 pb-12 border-b border-zinc-800 last:border-0">
+          <a href={`/blog/${post.slug}`} class="gallery-item block aspect-video md:aspect-auto overflow-hidden bg-zinc-900 rounded-xl">
             <img
               src={post.cover}
               alt={post.title}

@@ -58,7 +58,7 @@ const categories = ['Alle', ...new Set(galleries.map(g => g.category))];
 <BaseLayout title="Portfolio" description="Fotografie-Portfolio von Guido Walther – Tierwelt, Natur, Sport und Landschaft">
 
   <!-- Page Header -->
-  <div class="pt-32 pb-16 px-6 max-w-7xl mx-auto">
+  <div class="pt-32 pb-16 px-6 max-w-7xl mx-auto animate-fade-up opacity-0">
     <p class="text-orange-400 tracking-[0.2em] uppercase text-xs mb-3">Meine Arbeiten</p>
     <h1 class="text-4xl md:text-5xl font-thin">Portfolio</h1>
     <div class="mt-4 w-16 h-px bg-orange-400"></div>
@@ -66,7 +66,7 @@ const categories = ['Alle', ...new Set(galleries.map(g => g.category))];
 
   <!-- Filter Buttons -->
   <div class="max-w-7xl mx-auto px-6 mb-10">
-    <div class="flex gap-3 flex-wrap" id="filter-buttons">
+    <div class="flex gap-3 flex-wrap animate-fade-up opacity-0 delay-200" id="filter-buttons">
       {categories.map((cat, i) => (
         <button
           data-filter={cat}
@@ -88,7 +88,7 @@ const categories = ['Alle', ...new Set(galleries.map(g => g.category))];
       {galleries.map(gallery => (
         <a
           href={`/portfolio/${gallery.slug}`}
-          class="gallery-item group block bg-zinc-900"
+          class="reveal gallery-item group block bg-zinc-900 rounded-xl overflow-hidden"
           data-category={gallery.category}
         >
           <div class="aspect-[4/3] overflow-hidden">

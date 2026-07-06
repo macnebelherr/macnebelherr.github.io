@@ -177,23 +177,3 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   </div>
 </BaseLayout>
-
-<script>
-  // Elemente mit .reveal weich einblenden, sobald sie ins Bild scrollen
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry, ) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-
-  document.querySelectorAll('.reveal').forEach((el, i) => {
-    (el as HTMLElement).style.transitionDelay = `${i * 120}ms`;
-    observer.observe(el);
-  });
-</script>

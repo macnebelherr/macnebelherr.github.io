@@ -127,4 +127,23 @@ const navLinks = [
     iconOpen?.classList.toggle('hidden');
     iconClose?.classList.toggle('hidden');
   });
+
+  // Scroll-Reveal: alle .reveal-Elemente blenden weich ein, sobald sie ins Bild scrollen.
+  // Gilt seitenweit – jede Seite kann Elemente einfach mit class="reveal" markieren.
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    (el as HTMLElement).style.transitionDelay = `${(i % 6) * 100}ms`;
+    revealObserver.observe(el);
+  });
 </script>

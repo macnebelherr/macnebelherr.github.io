@@ -99,7 +99,7 @@ const gallery = galleries.find(g => g.slug === Astro.params.slug)!;
 <BaseLayout title={gallery.title} description={gallery.description}>
 
   <!-- Back link + header -->
-  <div class="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+  <div class="pt-32 pb-12 px-6 max-w-7xl mx-auto animate-fade-up opacity-0">
     <a href="/portfolio" class="text-zinc-500 hover:text-orange-400 transition-colors text-sm tracking-wider uppercase inline-flex items-center gap-2 mb-8">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
@@ -116,7 +116,7 @@ const gallery = galleries.find(g => g.slug === Astro.params.slug)!;
   <div class="max-w-7xl mx-auto px-6 pb-20">
     <div class="columns-1 md:columns-2 gap-4 space-y-4">
       {gallery.images.map((src, i) => (
-        <div class="gallery-item break-inside-avoid cursor-zoom-in" onclick={`openLightbox(${i})`}>
+        <div class="reveal gallery-item break-inside-avoid cursor-zoom-in rounded-xl overflow-hidden" onclick={`openLightbox(${i})`}>
           <img
             src={src}
             alt={`${gallery.title} – Bild ${i + 1}`}
@@ -140,7 +140,7 @@ const gallery = galleries.find(g => g.slug === Astro.params.slug)!;
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
       </svg>
     </button>
-    <img id="lightbox-img" src="" alt="" class="max-w-[90vw] max-h-[90vh] object-contain" onclick="event.stopPropagation()" />
+    <img id="lightbox-img" src="" alt="" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg" onclick="event.stopPropagation()" />
     <button id="lb-next" class="absolute right-4 text-zinc-400 hover:text-white transition-colors p-4" onclick="event.stopPropagation(); nextImage()">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/>

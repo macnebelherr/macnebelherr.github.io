@@ -80,7 +80,7 @@ const galleries = [
         Guido Walther
       </h1>
       <p class="text-zinc-400 text-lg md:text-xl font-light max-w-xl mx-auto animate-fade-up opacity-0 delay-300">
-        Tierwelt · Natur · Sport · Landschaft
+        Menschen · Sport · Landschaft
       </p>
       <div class="mt-10 flex gap-4 justify-center animate-fade-up opacity-0 delay-400">
         <a
@@ -122,7 +122,7 @@ const galleries = [
       {galleries.map((gallery, i) => (
         <a
           href={`/portfolio/${gallery.slug}`}
-          class="gallery-item group block relative bg-zinc-900"
+          class="reveal gallery-item group block relative bg-zinc-900 rounded-xl overflow-hidden"
         >
           <div class="aspect-[4/3] overflow-hidden">
             <img
