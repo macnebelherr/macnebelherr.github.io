@@ -1,5 +1,74 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const cameras = [
+  {
+    name: 'Sony A7 V',
+    tag: 'Vollformat · 35mm',
+    desc: 'Meine Hauptkamera für anspruchsvolle Aufnahmen – aktuell mit dem 85mm bestückt, perfekt für Menschen und Porträts, unter anderem auch bei wenig Licht.',
+    image: '/images/kamera-a7v.jpg',
+  },
+  {
+    name: 'Sony A6700',
+    tag: 'APS-C · Crop-Faktor 1,5×',
+    desc: 'Meine kompakte Zweitkamera – aktuell mit dem 17–40mm bestückt, ideal für Sport und Tierfotografie, wo der APS-C-Crop-Faktor effektiv mehr Reichweite bringt.',
+    image: '/images/kamera-a6700.jpg',
+  },
+  {
+    name: 'Panasonic Lumix DMC-LX15',
+    tag: 'Kompaktkamera · 1"-Sensor',
+    desc: 'Meine Immer-dabei-Kamera – große Bildqualität im Taschenformat, wenn die Systemkameras zu groß oder zu auffällig sind.',
+    image: '/images/kamera-lx15.jpg',
+  },
+];
+
+const lenses = [
+  {
+    name: 'Sigma 17–40mm F1.8',
+    tag: 'Standardzoom · A6700',
+    desc: 'Mein am häufigsten genutztes Objektiv an der A6700 – durchgehend lichtstark mit f/1.8 über den ganzen Zoombereich.',
+  },
+  {
+    name: 'Sony 18–135mm F3.5–5.6',
+    tag: 'Kit-Zoom · A6700',
+    desc: 'Das klassische Kit-Objektiv – flexibel, aber seltener im Einsatz als das 17–40mm.',
+  },
+  {
+    name: 'Sony FE 85mm F1.8',
+    tag: 'Festbrennweite · A7 V',
+    desc: 'Häufig im Einsatz für Porträts – knackige Schärfe und schönes Freistellen vom Hintergrund.',
+  },
+  {
+    name: 'Sony FE 70–200mm F2.8 GM',
+    tag: 'Telezoom · A7 V',
+    desc: 'Sonys Original-Telezoom – mein Allrounder für Aufnahmen aus der Distanz und Sport.',
+  },
+  {
+    name: 'Sigma 24–70mm F2.8 Art',
+    tag: 'Standardzoom · A7 V',
+    desc: 'Mein vielseitiges Allround-Objektiv. Ein kleiner Kratzer auf der Frontlinse sieht schlimmer aus, als er ist – auf die Bildqualität hat er keinen Einfluss.',
+  },
+  {
+    name: 'Sigma 50mm F1.4 Art',
+    tag: 'Festbrennweite · adaptiert',
+    desc: 'Ein altes Sigma mit Canon-EF-Anschluss, läuft über einen Adapter an der Sony – bewährt und lichtstark.',
+  },
+  {
+    name: 'Sigma 20mm F1.4 Art',
+    tag: 'Super-Weitwinkel',
+    desc: 'Für den ganz großen Blickwinkel – mein Weitwinkel für Landschaften und beengte Situationen.',
+  },
+  {
+    name: 'Sigma 105mm F1.4 Art',
+    tag: 'Festbrennweite · Porträt',
+    desc: 'Mein absolutes Monster-Objektiv für Porträts – unglaublich scharf mit traumhaftem Bokeh.',
+  },
+  {
+    name: 'Sigma 150–600mm F5–6.3',
+    tag: 'Supertele',
+    desc: 'Reichweite pur – hauptsächlich im Einsatz bei Fußballspielen.',
+  },
+];
 ---
 
 <BaseLayout title="Über mich" description="Über Guido Walther – Hobbyfotograf aus Norddeutschland">
@@ -115,70 +184,58 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="text-orange-400 tracking-[0.2em] uppercase text-xs mb-2">Mein Equipment</p>
       <h2 class="text-2xl font-thin mb-10">Ausrüstung</h2>
 
-      <div class="grid md:grid-cols-2 gap-6">
-
-        <!-- Kamera 1 -->
-        <div class="reveal equipment-card bg-zinc-900 p-6 rounded-lg border border-zinc-800">
-          <div class="flex items-start gap-4">
-            <div class="text-orange-400 mt-1">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {cameras.map((cam) => (
+          <div class="reveal equipment-card bg-zinc-900 rounded-lg border border-zinc-800 overflow-hidden">
+            <div class="aspect-[4/3] bg-zinc-950 overflow-hidden">
+              <img
+                src={cam.image}
+                alt={cam.name}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
-            <div>
-              <h3 class="text-white font-light text-lg">Sony A7 V</h3>
-              <p class="text-orange-400 text-xs tracking-wider uppercase mt-0.5">Vollformat · 35mm</p>
+            <div class="p-6">
+              <h3 class="text-white font-light text-lg">{cam.name}</h3>
+              <p class="text-orange-400 text-xs tracking-wider uppercase mt-0.5">{cam.tag}</p>
               <p class="text-zinc-500 text-sm mt-2 leading-relaxed">
-                Meine Hauptkamera für anspruchsvolle Aufnahmen – perfekt für Tierwelt, Natur und Landschaft mit herausragender Bildqualität bei wenig Licht.
+                {cam.desc}
               </p>
             </div>
           </div>
-        </div>
-
-        <!-- Kamera 2 -->
-        <div class="reveal equipment-card bg-zinc-900 p-6 rounded-lg border border-zinc-800">
-          <div class="flex items-start gap-4">
-            <div class="text-orange-400 mt-1">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-white font-light text-lg">Sony A6700</h3>
-              <p class="text-orange-400 text-xs tracking-wider uppercase mt-0.5">APS-C · Crop-Faktor 1,5×</p>
-              <p class="text-zinc-500 text-sm mt-2 leading-relaxed">
-                Meine kompakte Zweitkamera – ideal für Sport und Tierfotografie, wo der APS-C-Crop-Faktor effektiv mehr Reichweite bringt.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Objektive -->
-        <div class="reveal equipment-card bg-zinc-900 p-6 rounded-lg border border-zinc-800 md:col-span-2">
-          <div class="flex items-start gap-4">
-            <div class="text-orange-400 mt-1">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
-                <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5"/>
-                <line x1="12" y1="2" x2="12" y2="4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="12" y1="20" x2="12" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="2" y1="12" x2="4" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <line x1="20" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="flex-1">
-              <h3 class="text-white font-light text-lg">Objektive</h3>
-              <p class="text-orange-400 text-xs tracking-wider uppercase mt-0.5">Je nach Einsatz</p>
-              <p class="text-zinc-500 text-sm mt-2 leading-relaxed">
-                Ich wähle meine Objektive je nach Motiv und Situation – von Weitwinkel für Landschaften bis Tele für scheue Tiere und Sportaufnahmen aus der Distanz.
-              </p>
-            </div>
-          </div>
-        </div>
-
+        ))}
       </div>
+
+      <!-- Objektive -->
+      <p class="text-orange-400 tracking-[0.2em] uppercase text-xs mb-2 mt-14">Je nach Einsatz</p>
+      <h3 class="text-xl font-thin mb-6">Objektive</h3>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {lenses.map((lens) => (
+          <div class="reveal equipment-card bg-zinc-900 p-5 rounded-lg border border-zinc-800">
+            <div class="flex items-start gap-3">
+              <div class="text-orange-400 mt-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+                  <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.5"/>
+                  <line x1="12" y1="2" x2="12" y2="4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="12" y1="20" x2="12" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="2" y1="12" x2="4" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="20" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h4 class="text-white font-light text-base">{lens.name}</h4>
+                <p class="text-orange-400 text-xs tracking-wider uppercase mt-0.5">{lens.tag}</p>
+                <p class="text-zinc-500 text-sm mt-2 leading-relaxed">
+                  {lens.desc}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
     </div>
 
   </div>
