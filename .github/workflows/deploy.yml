@@ -27,12 +27,12 @@ jobs:
       # Zugangsdaten liegen als GitHub Actions Secrets im Repo
       # (Settings -> Secrets and variables -> Actions), niemals im Code.
       - name: Deploy to Hostinger via SFTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          server: ${{ secrets.HOSTINGER_SFTP_HOST }}
-          protocol: sftp
-          port: ${{ secrets.HOSTINGER_SFTP_PORT }}
           username: ${{ secrets.HOSTINGER_SFTP_USERNAME }}
+          server: ${{ secrets.HOSTINGER_SFTP_HOST }}
+          port: ${{ secrets.HOSTINGER_SFTP_PORT }}
           password: ${{ secrets.HOSTINGER_SFTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: ${{ secrets.HOSTINGER_REMOTE_DIR }}
+          local_path: './dist/*'
+          remote_path: ${{ secrets.HOSTINGER_REMOTE_DIR }}
+          sftp_only: true
