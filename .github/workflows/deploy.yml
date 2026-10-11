@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.HOSTINGER_SFTP_USERNAME }}
           server: ${{ secrets.HOSTINGER_SFTP_HOST }}
           port: ${{ secrets.HOSTINGER_SFTP_PORT }}
-          password: ${{ secrets.HOSTINGER_SFTP_PASSWORD }}
+          ssh_private_key: ${{ secrets.HOSTINGER_SSH_KEY }}
           local_path: './dist/*'
           remote_path: ${{ secrets.HOSTINGER_REMOTE_DIR }}
           sftp_only: true
