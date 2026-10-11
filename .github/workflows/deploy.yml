@@ -34,5 +34,5 @@ jobs:
           port: ${{ secrets.HOSTINGER_SFTP_PORT }}
           ssh_private_key: ${{ secrets.HOSTINGER_SSH_KEY }}
           local_path: './dist/*'
-          remote_path: ${{ secrets.HOSTINGER_REMOTE_DIR }}
+          remote_path: '/home/u263659664/domains/macnebelherr.eu/public_html'
           sftp_only: true
